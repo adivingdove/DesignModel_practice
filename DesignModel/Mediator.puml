@@ -1,0 +1,50 @@
+@startuml
+class Mediator.Client {
++ {static} void main(String[])
+}
+
+class Mediator.SmartHomeMediator {
+- Map<String,Device> devices
++ void register(Device)
++ void notify(Device,String)
+}
+
+
+class Mediator.Light {
++ void turnOn()
++ void sendNotification(String)
+}
+
+abstract class Mediator.Device {
+# SmartMediator mediator
++ {abstract}void sendNotification(String)
+}
+
+
+class Mediator.Curtain {
++ void withdraw()
++ void sendNotification(String)
+}
+
+class Mediator.Alarm {
++ void ring()
++ void sendNotification(String)
+}
+
+class Mediator.CoffeeMachine {
++ void start()
++ void sendNotification(String)
+}
+
+interface Mediator.SmartMediator {
+~ void notify(Device,String)
+}
+
+
+
+Mediator.SmartMediator <|.. Mediator.SmartHomeMediator
+Mediator.Device <|-- Mediator.Light
+Mediator.Device <|-- Mediator.Curtain
+Mediator.Device <|-- Mediator.Alarm
+Mediator.Device <|-- Mediator.CoffeeMachine
+@enduml

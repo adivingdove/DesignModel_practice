@@ -1,0 +1,34 @@
+@startuml
+class Strategy.Client {
++ {static} void main(String[])
+}
+
+class Strategy.SubwayStrategy {
++ void travel(String,String)
+}
+
+class Strategy.TravelContext {
+- TravelStrategy strategy
++ void setStrategy(TravelStrategy)
++ void executeTravel(String,String)
+}
+
+
+class Strategy.BikeStrategy {
++ void travel(String,String)
+}
+
+interface Strategy.TravelStrategy {
+~ void travel(String,String)
+}
+
+class Strategy.CarStrategy {
++ void travel(String,String)
+}
+
+
+
+Strategy.TravelStrategy <|.. Strategy.SubwayStrategy
+Strategy.TravelStrategy <|.. Strategy.BikeStrategy
+Strategy.TravelStrategy <|.. Strategy.CarStrategy
+@enduml

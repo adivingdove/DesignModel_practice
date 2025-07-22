@@ -1,0 +1,63 @@
+@startuml
+class Command.LightOnCommand {
+- Light light
++ void execute()
++ void undo()
+}
+
+
+class Command.FanOnCommand {
+- Fan fan
++ void execute()
++ void undo()
+}
+
+
+class Command.Fan {
++ void on()
++ void off()
+}
+
+class Command.RemoteController {
+- Command lightOnCommand
+~ boolean lightOn
+~ boolean fanOn
+~ boolean tvOn
++ void button_zero()
++ void button_one()
++ void button_two()
+}
+
+
+interface Command.Command {
+~ void execute()
+~ void undo()
+}
+
+class Command.TV {
++ void on()
++ void off()
+}
+
+class Command.TVOnCommand {
+- TV tv
++ void execute()
++ void undo()
+}
+
+
+class Command.Light {
++ void on()
++ void off()
+}
+
+class Command.Client {
++ {static} void main(String[])
+}
+
+
+
+Command.Command <|.. Command.LightOnCommand
+Command.Command <|.. Command.FanOnCommand
+Command.Command <|.. Command.TVOnCommand
+@enduml

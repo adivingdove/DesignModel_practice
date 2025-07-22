@@ -1,0 +1,181 @@
+@startuml
+class SmartDevice.HuaweiSpeakerBuilder {
+- SmartSpeaker smartSpeaker
++ void buildVoiceRecognition()
++ void buildWiFi()
++ void buildSoundEffect()
++ SmartSpeaker getResult()
+}
+
+
+class SmartDevice.XiaomiLight {
++ void initialize()
++ SmartDevice clone()
+}
+
+interface SmartDevice.DeviceFactory {
+~ SmartDevice createDevice()
+}
+
+interface SmartDevice.SmartDevice {
+~ void initialize()
+~ SmartDevice clone()
+}
+
+class SmartDevice.PhilipsLight {
++ void initialize()
++ SmartDevice clone()
+}
+
+class SmartDevice.XiaomiAirConditioner {
++ void initialize()
++ SmartDevice clone()
+}
+
+class SmartDevice.HuaweiLight {
++ void initialize()
++ SmartDevice clone()
+}
+
+enum SmartDevice.DeviceType {
++  Light
++  AirConditioner
++  Speaker
+}
+
+enum SmartDevice.Brand {
++  Xiaomi
++  Huawei
++  Philips
+}
+
+class SmartDevice.Client {
++ {static} void main(String[])
+}
+
+class SmartDevice.PhilipsSpeakerBuilder {
+- SmartSpeaker smartSpeaker
++ void buildVoiceRecognition()
++ void buildWiFi()
++ void buildSoundEffect()
++ SmartSpeaker getResult()
+}
+
+
+class SmartDevice.XiaomiDeviceFactory {
++ Light createLight()
++ AirConditioner createAirConditioner()
++ SpeakerBuilder createSpeakerBuilder()
+}
+
+interface SmartDevice.SpeakerBuilder {
++ {abstract}void buildVoiceRecognition()
++ {abstract}void buildWiFi()
++ {abstract}void buildSoundEffect()
++ SmartSpeaker getResult()
+}
+
+interface SmartDevice.Light {
+}
+class SmartDevice.XiaomiSpeakerBuilder {
+- SmartSpeaker smartSpeaker
++ void buildVoiceRecognition()
++ void buildWiFi()
++ void buildSoundEffect()
++ SmartSpeaker getResult()
+}
+
+
+interface SmartDevice.AirConditioner {
+}
+class SmartDevice.SmartSpeaker {
+- String VoiceRecognition
+- String wiFi
+- String soundEffect
++ void setVoiceRecognition(String)
++ void setwiFi(String)
++ void setsoundEffect(String)
++ void initialize()
++ SmartDevice clone()
++ String toString()
+}
+
+
+class SmartDevice.Director {
+- SpeakerBuilder builder
++ SmartSpeaker construct()
+}
+
+
+class SmartDevice.PhilipsAirConditioner {
++ void initialize()
++ SmartDevice clone()
+}
+
+class SmartDevice.PhilipsDeviceFactory {
++ Light createLight()
++ AirConditioner createAirConditioner()
++ SpeakerBuilder createSpeakerBuilder()
+}
+
+class SmartDevice.HuaweiDeviceFactory {
++ Light createLight()
++ AirConditioner createAirConditioner()
++ SpeakerBuilder createSpeakerBuilder()
+}
+
+class SmartDevice.HuaweiAirConditioner {
++ void initialize()
++ SmartDevice clone()
+}
+
+class SmartDevice.DeviceManager {
+- {static} DeviceManager instance
+- List<SmartDevice> devices
++ {static} DeviceManager getInstance()
++ void register(SmartDevice)
+}
+
+
+interface SmartDevice.Speaker {
+}
+interface SmartDevice.AbstractDeviceFactory {
+~ Light createLight()
+~ AirConditioner createAirConditioner()
+~ SpeakerBuilder createSpeakerBuilder()
+}
+
+class SmartDevice.LightFactory {
+- AbstractDeviceFactory brandFactory
++ SmartDevice createDevice()
+}
+
+
+class SmartDevice.AirConditionerFactory {
+- AbstractDeviceFactory brandFactory
++ SmartDevice createDevice()
+}
+
+
+
+
+SmartDevice.SpeakerBuilder <|.. SmartDevice.HuaweiSpeakerBuilder
+SmartDevice.Light <|.. SmartDevice.XiaomiLight
+SmartDevice.Cloneable <|-- SmartDevice.SmartDevice
+SmartDevice.Light <|.. SmartDevice.PhilipsLight
+SmartDevice.AirConditioner <|.. SmartDevice.XiaomiAirConditioner
+SmartDevice.Light <|.. SmartDevice.HuaweiLight
+SmartDevice.SpeakerBuilder <|.. SmartDevice.PhilipsSpeakerBuilder
+SmartDevice.AbstractDeviceFactory <|.. SmartDevice.XiaomiDeviceFactory
+SmartDevice.SmartDevice <|-- SmartDevice.Light
+SmartDevice.SpeakerBuilder <|.. SmartDevice.XiaomiSpeakerBuilder
+SmartDevice.SmartDevice <|-- SmartDevice.AirConditioner
+SmartDevice.Speaker <|.. SmartDevice.SmartSpeaker
+SmartDevice.AirConditioner <|.. SmartDevice.PhilipsAirConditioner
+SmartDevice.AbstractDeviceFactory <|.. SmartDevice.PhilipsDeviceFactory
+SmartDevice.AbstractDeviceFactory <|.. SmartDevice.HuaweiDeviceFactory
+SmartDevice.AirConditioner <|.. SmartDevice.HuaweiAirConditioner
+SmartDevice.SmartDevice <|-- SmartDevice.Speaker
+SmartDevice.DeviceFactory <|.. SmartDevice.LightFactory
+SmartDevice.DeviceFactory <|.. SmartDevice.AirConditionerFactory
+@enduml

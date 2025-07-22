@@ -1,0 +1,30 @@
+@startuml
+class Facade.AirConditioner1 {
++ void on()
++ void off()
+}
+
+class Facade.Light {
++ void on()
++ void off()
+}
+
+class Facade.HomeFacade {
+- AirConditioner1 airConditioner
+- Light light
+- SecuritySystem securitySystem
++ void homeMode()
++ void awayMode()
+}
+
+
+class Facade.SecuritySystem {
++ void on()
++ void off()
+}
+
+class Facade.Client {
++ {static} void main(String[])
+}
+
+@enduml

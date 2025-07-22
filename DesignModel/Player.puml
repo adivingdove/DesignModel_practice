@@ -1,0 +1,110 @@
+@startuml
+class Player.Playlist {
+- String name
+- List<Media> items
+- String logName
++ String getLogName()
++ void add(Media)
++ void play()
++ String getFilename()
+}
+
+
+class Player.AviAdapter {
+- MP4 mp4
+- String filename
++ void play()
++ String getFilename()
+}
+
+
+class Player.SpeedDecorator {
+- double speed
++ void play()
+}
+
+
+class Player.MediaProxy {
+- Media realMedia
+- String user
++ void play()
++ String getFilename()
+- String getFilename(Media)
+}
+
+
+class Player.LinuxPlatform {
++ void decode(String)
+}
+
+class Player.MP3 {
+# String filename
+- Platform platform
++ void play()
++ String getFilename()
+}
+
+
+class Player.SubtitleDecorator {
++ void play()
+}
+
+abstract class Player.MediaDecorator {
+- Media media
++ void play()
++ String getFilename()
+}
+
+
+class Player.WindowsPlatform {
++ void decode(String)
+}
+
+abstract class Player.BaseMedia {
+# String filename
+}
+
+interface Player.Platform {
+~ void decode(String)
+}
+
+class Player.MP4 {
+# String filename
+- Platform platform
++ void play()
++ String getFilename()
+}
+
+
+interface Player.Media {
+~ void play()
+~ String getFilename()
+}
+
+class Player.MediaPlayerFacade {
++ void playMedia(Media)
+}
+
+class Player.Client {
++ {static} void main(String[])
+}
+
+class Player.EffectDecorator {
++ void play()
+}
+
+
+
+Player.Media <|.. Player.Playlist
+Player.Media <|.. Player.AviAdapter
+Player.MediaDecorator <|-- Player.SpeedDecorator
+Player.Media <|.. Player.MediaProxy
+Player.Platform <|.. Player.LinuxPlatform
+Player.BaseMedia <|-- Player.MP3
+Player.MediaDecorator <|-- Player.SubtitleDecorator
+Player.Media <|.. Player.MediaDecorator
+Player.Platform <|.. Player.WindowsPlatform
+Player.Media <|.. Player.BaseMedia
+Player.BaseMedia <|-- Player.MP4
+Player.MediaDecorator <|-- Player.EffectDecorator
+@enduml

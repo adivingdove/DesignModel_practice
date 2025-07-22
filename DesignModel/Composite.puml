@@ -1,0 +1,27 @@
+@startuml
+class Composite.File {
+~ void display(String)
+}
+
+class Composite.Client {
++ {static} void main(String[])
+}
+
+class Composite.Directory {
+- List<FileSystemNode> children
++ void addNode(FileSystemNode)
++ void display(String)
+}
+
+
+abstract class Composite.FileSystemNode {
+# String name
+~ {abstract}void display(String)
+}
+
+
+
+
+Composite.FileSystemNode <|-- Composite.File
+Composite.FileSystemNode <|-- Composite.Directory
+@enduml

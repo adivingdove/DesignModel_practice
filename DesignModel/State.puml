@@ -1,0 +1,59 @@
+@startuml
+class State.Account {
+- AccountState state
+- double balance
++ void deposit(double)
++ void withdraw(double)
++ void computeInterest()
++ void showStatus()
++ double getBalance()
++ void setBalance(double)
++ void setState(AccountState)
++ AccountState getState()
+}
+
+
+class State.RestrictedState {
++ String getStateName()
++ void deposit(double)
++ void withdraw(double)
++ void computeInterest()
+# void stateCheck()
+}
+
+abstract class State.AccountState {
+# Account account
+# String stateName
++ {abstract}void deposit(double)
++ {abstract}void withdraw(double)
++ {abstract}void computeInterest()
+# {abstract}void stateCheck()
+}
+
+
+class State.Client {
++ {static} void main(String[])
+}
+
+class State.OverdraftState {
++ String getStateName()
++ void deposit(double)
++ void withdraw(double)
++ void computeInterest()
+# void stateCheck()
+}
+
+class State.NormalState {
++ String getStateName()
++ void deposit(double)
++ void withdraw(double)
++ void computeInterest()
+# void stateCheck()
+}
+
+
+
+State.AccountState <|-- State.RestrictedState
+State.AccountState <|-- State.OverdraftState
+State.AccountState <|-- State.NormalState
+@enduml

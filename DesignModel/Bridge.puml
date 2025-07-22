@@ -1,0 +1,38 @@
+@startuml
+class Bridge.CommonMessage {
++ void send(String)
+}
+
+class Bridge.UrgentMessage {
++ void send(String)
+}
+
+abstract class Bridge.Message {
+# MessageSender messageSender
++ {abstract}void send(String)
+}
+
+
+class Bridge.SmsSender {
++ void send(String)
+}
+
+interface Bridge.MessageSender {
+~ void send(String)
+}
+
+class Bridge.EmailSender {
++ void send(String)
+}
+
+class Bridge.Client {
++ {static} void main(String[])
+}
+
+
+
+Bridge.Message <|-- Bridge.CommonMessage
+Bridge.Message <|-- Bridge.UrgentMessage
+Bridge.MessageSender <|.. Bridge.SmsSender
+Bridge.MessageSender <|.. Bridge.EmailSender
+@enduml

@@ -1,0 +1,40 @@
+@startuml
+class Cor.Client {
++ {static} void main(String[])
+}
+
+class Cor.ManagerHandler {
++ void handleRequest(LeaveRequest)
++ void setNextHandler(LeaveHandler)
+}
+
+class Cor.TeamLeaderHandler {
++ void handleRequest(LeaveRequest)
+}
+
+class Cor.DirectorHandler {
++ void handleRequest(LeaveRequest)
+}
+
+class Cor.LeaveRequest {
+- String name
+- int days
++ int getDays()
++ String getName()
+}
+
+
+abstract class Cor.LeaveHandler {
+# String name
+# LeaveHandler nextHandler
++ void setNextHandler(LeaveHandler)
++ {abstract}void handleRequest(LeaveRequest)
+}
+
+
+
+
+Cor.LeaveHandler <|-- Cor.ManagerHandler
+Cor.LeaveHandler <|-- Cor.TeamLeaderHandler
+Cor.LeaveHandler <|-- Cor.DirectorHandler
+@enduml

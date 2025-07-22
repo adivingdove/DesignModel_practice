@@ -1,0 +1,42 @@
+@startuml
+class Decorator.SugarDecorator {
+~ String getDescription()
+~ double getCost()
+}
+
+class Decorator.MilkDecorator {
+~ String getDescription()
+~ double getCost()
+}
+
+abstract class Decorator.Beverage {
+~ {abstract}String getDescription()
+~ {abstract}double getCost()
+}
+
+class Decorator.Tea {
+~ String getDescription()
+~ double getCost()
+}
+
+class Decorator.Client {
++ {static} void main(String[])
+}
+
+class Decorator.Coffee {
+~ String getDescription()
+~ double getCost()
+}
+
+abstract class Decorator.BeverageDecorator {
+# Beverage beverage
+}
+
+
+
+Decorator.BeverageDecorator <|-- Decorator.SugarDecorator
+Decorator.BeverageDecorator <|-- Decorator.MilkDecorator
+Decorator.Beverage <|-- Decorator.Tea
+Decorator.Beverage <|-- Decorator.Coffee
+Decorator.Beverage <|-- Decorator.BeverageDecorator
+@enduml

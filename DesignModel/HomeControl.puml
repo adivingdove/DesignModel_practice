@@ -1,0 +1,158 @@
+@startuml
+class HomeControl.OnState {
++ void handle(Device)
+}
+
+class HomeControl.CurtainHandler {
++ void handleRequest(String)
+}
+
+class HomeControl.Client {
++ {static} void main(String[])
+}
+
+class HomeControl.FastResponseStrategy {
++ void execute()
+}
+
+class HomeControl.AirConditionerHandler {
++ void handleRequest(String)
+}
+
+class HomeControl.Light {
++ void on()
++ void off()
+}
+
+interface HomeControl.Command {
+~ void execute()
+~ void undo()
+}
+
+interface HomeControl.DeviceState {
+~ void handle(Device)
+}
+
+class HomeControl.AirConditioner {
+- DeviceStrategy strategy
++ void setStrategy(DeviceStrategy)
++ void performOperation()
++ void update(String)
+~ void checkUp()
+~ void electrify()
+~ void start()
+}
+
+
+abstract class HomeControl.Device {
+- DeviceState state
+- String name
++ String getName()
++ DeviceState getState()
++ void setState(DeviceState)
++ void request()
+~ {abstract}void on()
+~ {abstract}void off()
+}
+
+
+class HomeControl.RemoteControl {
+- Command command
+- Deque<Command> history
++ void setCommand(Command)
++ void pressButton()
++ void pressUndo()
+}
+
+
+class HomeControl.LightOnCommand {
+- Light light
++ void execute()
++ void undo()
+}
+
+
+interface HomeControl.Subject {
+~ void registerSubscriber(Observer)
+~ void removeSubscriber(Observer)
+~ void notifySubscriber(String)
+}
+
+abstract class HomeControl.Handler {
+# Handler next
++ void setNext(Handler)
++ {abstract}void handleRequest(String)
+}
+
+
+class HomeControl.EnergySavingStrategy {
++ void execute()
+}
+
+class HomeControl.VoiceHandler {
++ void handleRequest(String)
+}
+
+abstract class HomeControl.SmartDevice {
+~ void startup()
+~ {abstract}void checkUp()
+~ {abstract}void electrify()
+~ {abstract}void start()
+}
+
+interface HomeControl.DeviceStrategy {
+~ void execute()
+}
+
+class HomeControl.CurtainOpenCommand {
+- Curtain curtain
++ void execute()
++ void undo()
+}
+
+
+class HomeControl.WashingMachine {
+~ void checkUp()
+~ void electrify()
+~ void start()
+}
+
+class HomeControl.OffState {
++ void handle(Device)
+}
+
+interface HomeControl.Observer {
+~ void update(String)
+}
+
+class HomeControl.Sensor {
+- List<Observer> subscribers
++ void registerSubscriber(Observer)
++ void removeSubscriber(Observer)
++ void notifySubscriber(String)
+}
+
+
+class HomeControl.Curtain {
++ void on()
++ void off()
+}
+
+
+
+HomeControl.DeviceState <|.. HomeControl.OnState
+HomeControl.Handler <|-- HomeControl.CurtainHandler
+HomeControl.DeviceStrategy <|.. HomeControl.FastResponseStrategy
+HomeControl.Handler <|-- HomeControl.AirConditionerHandler
+HomeControl.Device <|-- HomeControl.Light
+HomeControl.Observer <|.. HomeControl.AirConditioner
+HomeControl.SmartDevice <|-- HomeControl.AirConditioner
+HomeControl.Command <|.. HomeControl.LightOnCommand
+HomeControl.DeviceStrategy <|.. HomeControl.EnergySavingStrategy
+HomeControl.Handler <|-- HomeControl.VoiceHandler
+HomeControl.Command <|.. HomeControl.CurtainOpenCommand
+HomeControl.SmartDevice <|-- HomeControl.WashingMachine
+HomeControl.DeviceState <|.. HomeControl.OffState
+HomeControl.Subject <|.. HomeControl.Sensor
+HomeControl.Device <|-- HomeControl.Curtain
+@enduml

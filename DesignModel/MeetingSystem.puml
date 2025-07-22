@@ -1,0 +1,352 @@
+@startuml
+class MeetingSystem.DesktopUI {
++ void render()
+}
+
+class MeetingSystem.MeetingStatusManager {
+- List<Observer> observers
+- String status
++ void setStatus(String)
++ void registerObserver(Observer)
++ void removeObserver(Observer)
++ void notifyObserver()
+}
+
+
+class MeetingSystem.Client {
++ {static} void main(String[])
+}
+
+class MeetingSystem.WebNotifier {
++ void sendNotification(String)
+}
+
+class MeetingSystem.DesktopNotifier {
++ void sendNotification(String)
+}
+
+class MeetingSystem.WebPlatformAPI {
++ void videoOn()
++ void videoOff()
++ void audioOn()
++ void audioOff()
+}
+
+interface MeetingSystem.Subject {
+~ void registerObserver(Observer)
+~ void removeObserver(Observer)
+~ void notifyObserver()
+}
+
+class MeetingSystem.ConcreteMeetingRecord {
+- String content
++ void setContent(String)
++ String getContent()
+}
+
+
+class MeetingSystem.WebNetManager {
++ void connect()
+}
+
+abstract class MeetingSystem.RecordDecorator {
+# MeetingRecord record
++ {abstract}String getContent()
+}
+
+
+class MeetingSystem.SummaryDecorator {
+- String content
++ void setContent(String)
++ String getContent()
+}
+
+
+interface MeetingSystem.MeetingRecord {
+~ void setContent(String)
+~ String getContent()
+}
+
+class MeetingSystem.MobileComponentFactory {
++ Notifier createNotifier()
++ NetManager createNetManager()
++ UI createUI()
+}
+
+class MeetingSystem.Invoker {
+- Stack<Command> history
++ void run(Command)
++ void undo()
+}
+
+
+interface MeetingSystem.NetManager {
+~ void connect()
+}
+
+class MeetingSystem.UIObserver {
++ void update(String)
+}
+
+class MeetingSystem.ConcreteMeetingBuilder {
+- Meeting meeting
++ void setAgenda(String)
++ void setTime(LocalDateTime)
++ void setHost(User)
++ void setParticipants(List<User>)
++ Meeting getResult()
+}
+
+
+interface MeetingSystem.MeetingBuilder {
+~ void setAgenda(String)
+~ void setTime(LocalDateTime)
+~ void setHost(User)
+~ void setParticipants(List<User>)
+~ Meeting getResult()
+}
+
+interface MeetingSystem.Observer {
+~ void update(String)
+}
+
+class MeetingSystem.CancelMeetingCommand {
+- MeetingSystem system
++ void execute()
++ void undo()
+}
+
+
+class MeetingSystem.MobileNetManager {
++ void connect()
+}
+
+class MeetingSystem.Director {
++ Meeting construct(MeetingBuilder)
+}
+
+class MeetingSystem.CreateMeetingCommand {
+- MeetingSystem system
++ void execute()
++ void undo()
+}
+
+
+interface MeetingSystem.PlatformAPI {
+~ void videoOn()
+~ void videoOff()
+~ void audioOn()
+~ void audioOff()
+}
+
+class MeetingSystem.ConcreteMeetingController {
++ void start()
++ void muteAll()
++ void stop()
+}
+
+class MeetingSystem.LoggerObserver {
++ void update(String)
+}
+
+class MeetingSystem.RemoteServiceObserver {
++ void update(String)
+}
+
+class MeetingSystem.KeywordDecorator {
+- String content
++ void setContent(String)
++ String getContent()
+}
+
+
+class MeetingSystem.Scheduler {
+- SchedulingStrategy strategy
++ void setStrategy(SchedulingStrategy)
++ SchedulingStrategy getStrategy()
++ void executeStrategy()
+}
+
+
+class MeetingSystem.MobileNotifier {
++ void sendNotification(String)
+}
+
+class MeetingSystem.WebUI {
++ void render()
+}
+
+class MeetingSystem.MobileUI {
++ void render()
+}
+
+interface MeetingSystem.UI {
+~ void render()
+}
+
+interface MeetingSystem.SchedulingStrategy {
+~ void schedule()
+}
+
+interface MeetingSystem.ComponentFactory {
+~ Notifier createNotifier()
+~ NetManager createNetManager()
+~ UI createUI()
+}
+
+class MeetingSystem.DesktopComponentFactory {
++ Notifier createNotifier()
++ NetManager createNetManager()
++ UI createUI()
+}
+
+class MeetingSystem.Meeting {
+# String agenda
+# LocalDateTime time
+# User host
+# List<User> users
++ void dispMeetingInfo()
++ void setAgenda(String)
++ String getAgenda()
++ void setTime(LocalDateTime)
++ LocalDateTime getTime()
++ void setHost(User)
++ User getHost()
++ void setUsers(List<User>)
++ List<User> getUsers()
+}
+
+
+class MeetingSystem.EnergySavingStrategy {
++ void schedule()
+}
+
+class MeetingSystem.PerformanceFirstStrategy {
++ void schedule()
+}
+
+abstract class MeetingSystem.MeetingController {
+# PlatformAPI platformAPI
++ {abstract}void start()
++ {abstract}void muteAll()
++ {abstract}void stop()
+}
+
+
+interface MeetingSystem.Notifier {
+~ void sendNotification(String)
+}
+
+class MeetingSystem.User {
+- String name
++ String getName()
+}
+
+
+class MeetingSystem.WindowsPlatformAPI {
++ void videoOn()
++ void videoOff()
++ void audioOn()
++ void audioOff()
+}
+
+class MeetingSystem.DesktopNetManager {
++ void connect()
+}
+
+class MeetingSystem.WebComponentFactory {
++ Notifier createNotifier()
++ NetManager createNetManager()
++ UI createUI()
+}
+
+interface MeetingSystem.Command {
+~ void execute()
+~ void undo()
+}
+
+class MeetingSystem.MeetingSystem {
+- ComponentFactory componentFactory
+- PlatformAPI platformAPI
+- MeetingController controller
+- Director director
+- Meeting meeting
+- MeetingStatusManager statusManager
+- Scheduler scheduler
+- MeetingRecord record
++ void setMeeting(Meeting)
++ void setScheduler(Scheduler)
++ void setRecord(MeetingRecord)
++ MeetingRecord getRecord()
++ void createMeeting()
++ void startMeeting()
++ void endMeeting()
++ Meeting getMeeting()
++ void registerObserver(Observer)
++ void setSchedulingStrategy(SchedulingStrategy)
++ void executeStrategy()
++ void setStatus(String)
+}
+
+
+
+
+MeetingSystem.UI <|.. MeetingSystem.DesktopUI
+MeetingSystem.Subject <|.. MeetingSystem.MeetingStatusManager
+MeetingSystem.Notifier <|.. MeetingSystem.WebNotifier
+MeetingSystem.Notifier <|.. MeetingSystem.DesktopNotifier
+MeetingSystem.PlatformAPI <|.. MeetingSystem.WebPlatformAPI
+MeetingSystem.MeetingRecord <|.. MeetingSystem.ConcreteMeetingRecord
+MeetingSystem.NetManager <|.. MeetingSystem.WebNetManager
+MeetingSystem.MeetingRecord <|.. MeetingSystem.RecordDecorator
+MeetingSystem.RecordDecorator <|-- MeetingSystem.SummaryDecorator
+MeetingSystem.ComponentFactory <|.. MeetingSystem.MobileComponentFactory
+MeetingSystem.Observer <|.. MeetingSystem.UIObserver
+MeetingSystem.MeetingBuilder <|.. MeetingSystem.ConcreteMeetingBuilder
+MeetingSystem.Command <|.. MeetingSystem.CancelMeetingCommand
+MeetingSystem.NetManager <|.. MeetingSystem.MobileNetManager
+MeetingSystem.Command <|.. MeetingSystem.CreateMeetingCommand
+MeetingSystem.MeetingController <|-- MeetingSystem.ConcreteMeetingController
+MeetingSystem.Observer <|.. MeetingSystem.LoggerObserver
+MeetingSystem.Observer <|.. MeetingSystem.RemoteServiceObserver
+MeetingSystem.RecordDecorator <|-- MeetingSystem.KeywordDecorator
+MeetingSystem.Notifier <|.. MeetingSystem.MobileNotifier
+MeetingSystem.UI <|.. MeetingSystem.WebUI
+MeetingSystem.UI <|.. MeetingSystem.MobileUI
+MeetingSystem.ComponentFactory <|.. MeetingSystem.DesktopComponentFactory
+MeetingSystem.SchedulingStrategy <|.. MeetingSystem.EnergySavingStrategy
+MeetingSystem.SchedulingStrategy <|.. MeetingSystem.PerformanceFirstStrategy
+MeetingSystem.PlatformAPI <|.. MeetingSystem.WindowsPlatformAPI
+MeetingSystem.NetManager <|.. MeetingSystem.DesktopNetManager
+MeetingSystem.ComponentFactory <|.. MeetingSystem.WebComponentFactory
+MeetingSystem.MeetingSystem o-- MeetingSystem.ComponentFactory : componentFactory
+MeetingSystem.MeetingSystem o-- MeetingSystem.PlatformAPI : platformAPI
+MeetingSystem.MeetingSystem o-- MeetingSystem.MeetingController : controller
+MeetingSystem.MeetingSystem o-- MeetingSystem.Director : director
+MeetingSystem.MeetingSystem o-- MeetingSystem.Meeting : meeting
+MeetingSystem.MeetingSystem o-- MeetingSystem.MeetingStatusManager : statusManager
+MeetingSystem.MeetingSystem o-- MeetingSystem.Scheduler : scheduler
+MeetingSystem.MeetingSystem o-- MeetingSystem.MeetingRecord : record
+MeetingSystem.Director --> MeetingSystem.MeetingBuilder : construct(builder)
+MeetingSystem.ConcreteMeetingBuilder --> MeetingSystem.User : setHost(User)
+MeetingSystem.ConcreteMeetingBuilder --> "List" : setParticipants(List<User>)
+MeetingSystem.Invoker --> MeetingSystem.Command : run(cmd)
+MeetingSystem.Invoker --> "Stack" : history : Stack<Command>
+MeetingSystem.CreateMeetingCommand --> MeetingSystem.MeetingSystem : system
+MeetingSystem.CancelMeetingCommand --> MeetingSystem.MeetingSystem : system
+MeetingSystem.Meeting o-- MeetingSystem.User : host
+MeetingSystem.Meeting o-- "List" : users : List<User>
+MeetingSystem.MeetingStatusManager --> MeetingSystem.Observer : observers
+MeetingSystem.UIObserver ..> MeetingSystem.MeetingStatusManager : registerObserver(this)
+MeetingSystem.LoggerObserver ..> MeetingSystem.MeetingStatusManager : registerObserver(this)
+MeetingSystem.RemoteServiceObserver ..> MeetingSystem.MeetingStatusManager : registerObserver(this)
+MeetingSystem.MeetingController o-- MeetingSystem.PlatformAPI : platformAPI
+MeetingSystem.RecordDecorator *-- MeetingSystem.MeetingRecord : record
+MeetingSystem.KeywordDecorator --> MeetingSystem.MeetingRecord : delegation
+MeetingSystem.SummaryDecorator --> MeetingSystem.MeetingRecord : delegation
+MeetingSystem.Scheduler o-- MeetingSystem.SchedulingStrategy : strategy
+MeetingSystem.ComponentFactory --> MeetingSystem.UI
+MeetingSystem.ComponentFactory --> MeetingSystem.NetManager
+MeetingSystem.ComponentFactory --> MeetingSystem.Notifier
+
+@enduml

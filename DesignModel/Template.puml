@@ -1,0 +1,36 @@
+@startuml
+class Template.Client {
++ {static} void main(String[])
+}
+
+class Template.XMLUtil {
++ {static} List<Object> getBeanList()
+}
+
+class Template.ProductDataImporter {
+~ void readFile()
+~ void parseData()
+~ void validateData()
+~ void saveData()
+}
+
+abstract class Template.DataImporter {
+~ void importData()
+~ {abstract}void readFile()
+~ {abstract}void parseData()
+~ {abstract}void validateData()
+~ {abstract}void saveData()
+}
+
+class Template.UserDataImport {
+~ void readFile()
+~ void parseData()
+~ void validateData()
+~ void saveData()
+}
+
+
+
+Template.DataImporter <|-- Template.ProductDataImporter
+Template.DataImporter <|-- Template.UserDataImport
+@enduml
